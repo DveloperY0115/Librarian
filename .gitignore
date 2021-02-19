@@ -1,5 +1,8 @@
-# VSCode
+# VS Code
 .vscode
+
+# Pycharm
+.idea
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
