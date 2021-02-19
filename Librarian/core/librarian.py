@@ -1,4 +1,6 @@
-class Librarian:
+import Librarian.spiders
+
+class Librarian(Spider):
     
     def __init__(self):
         return
