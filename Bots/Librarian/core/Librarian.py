@@ -1,11 +1,11 @@
-import Librarian.spiders
+from Bots.Librarian.core import spiders
 
-class Librarian(Spider):
+
+class Librarian(spiders.Spider):
     
     def __init__(self):
         return
 
-    
 
 # utility functions for class 'Librarian'
 def find_links(url):
