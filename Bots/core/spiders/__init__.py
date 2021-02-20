@@ -41,5 +41,15 @@ class Spider:
                 "did you miss an 's'?)")
 
         for url in self.start_urls:
-            headers = {'user-agent': 'spider'}
+            headers = {'user-agent': self.name}
             yield requests.get(url, headers=headers)
+
+
+if __name__ == '__main__':
+
+    my_spidy = Spider('librarian', start_urls=['https://www.gmarket.co.kr'])
+
+    for response in my_spidy.initiate_requests():
+        print('----------------\n')
+        print('URL: {}'.format(response.url))
+        print('Content: \n {}'.format(response.text))
