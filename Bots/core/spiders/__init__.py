@@ -71,14 +71,3 @@ class Spider:
         for url in self.start_urls:
             headers = {'user-agent': self.name}
             yield requests.get(url, headers=headers)
-
-
-
-if __name__ == '__main__':
-
-    my_spidey = Spider('librarian', start_urls=['https://www.gmarket.co.kr'])
-
-    for response in my_spidey.initiate_requests():
-        print('----------------\n')
-        print('URL: {}'.format(response.url))
-        print('Content: \n {}'.format(response.text))
