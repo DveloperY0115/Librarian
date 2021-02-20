@@ -7,6 +7,8 @@ import warnings
 import requests
 from typing import Optional
 
+from Bots.core.crawlers.default_crawler import Default_Crawler
+
 
 class Spider:
     """
@@ -24,6 +26,8 @@ class Spider:
         self.__dict__.update(kwargs)
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
+        if not hasattr(self, 'crawler'):
+            self.crawler = Default_Crawler(self.name + '-crawler')
 
     @property
     def logger(self):
@@ -40,6 +44,7 @@ class Spider:
                 "or empty (but found 'start_url' instead, "
                 "did you miss an 's'?)")
 
+        # todo: Replace processing to callbacks defined in Crawler
         for url in self.start_urls:
             headers = {'user-agent': self.name}
             yield requests.get(url, headers=headers)
@@ -47,9 +52,9 @@ class Spider:
 
 if __name__ == '__main__':
 
-    my_spidy = Spider('librarian', start_urls=['https://www.gmarket.co.kr'])
+    my_spidey = Spider('librarian', start_urls=['https://www.gmarket.co.kr'])
 
-    for response in my_spidy.initiate_requests():
+    for response in my_spidey.initiate_requests():
         print('----------------\n')
         print('URL: {}'.format(response.url))
         print('Content: \n {}'.format(response.text))
