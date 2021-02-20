@@ -24,3 +24,11 @@ class Spider:
         self.__dict__.update(kwargs)
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
+
+    @property
+    def logger(self):
+        logger = logging.getLogger(self.name)
+        return logging.LoggerAdapter(logger, {'spider': self})
+
+    def log(self, message, level=logging.DEBUG, **kwargs):
+        self.logger.log(level, message, **kwargs)
