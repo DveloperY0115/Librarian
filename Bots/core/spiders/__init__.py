@@ -32,3 +32,14 @@ class Spider:
 
     def log(self, message, level=logging.DEBUG, **kwargs):
         self.logger.log(level, message, **kwargs)
+
+    def initiate_requests(self):
+        if not self.start_urls and hasattr(self, 'start_url'):
+            raise AttributeError(
+                "Crawling could not start: Attribute 'start_urls' not found "
+                "or empty (but found 'start_url' instead, "
+                "did you miss an 's'?)")
+
+        for url in self.start_urls:
+            headers = {'user-agent': 'spider'}
+            yield requests.get(url, headers=headers)
