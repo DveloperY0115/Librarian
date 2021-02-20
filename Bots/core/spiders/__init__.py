@@ -15,12 +15,26 @@ from Bots.core.crawlers.default_crawler import Default_Crawler
 class Spider:
     """
     Base class for Librarian spiders. All spiders must inherit from this.
+    This class and all derived ones define procedures sending & receiving requests
+    to servers designated by URLs.
+
+    Attributes:
+        name (str): Name of this instance. Can NOT be None.
+        crawler (object): Crawler defining callbacks.
     """
 
     name: Optional[str] = None
     custom_settings: Optional[dict] = None
 
     def __init__(self, name=None, **kwargs):
+        """
+        Constructor.
+
+        Args:
+            name: Name of this instance. Can NOT be None.
+            kwargs:
+                -
+        """
         if name is not None:
             self.name = name
         elif not getattr(self, 'name', None):
