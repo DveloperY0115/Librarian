@@ -24,4 +24,4 @@ jobs:
           cd Bots && if [ -f requirements.txt]; then pip install -r requirements.txt; fi
       - name: Run unittests
         run: |
-          cd Bots/tests && python -m unittest discover
+          export PYTHONPATH=$PYTHONPATH:`pwd` && cd Bots/tests && python -m unittest discover
