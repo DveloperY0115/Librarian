@@ -23,6 +23,14 @@ class Crawler(metaclass=ABCMeta):
     name: Optional[str] = None
 
     def __init__(self, name=None, **kwargs):
+        """
+        Constructor.
+
+        Args:
+            name: Name of this instance. Can NOT be None.
+            kwargs:
+            -
+        """
         if name is not None:
             self.name = name
         elif not getattr(self, 'name', None):
