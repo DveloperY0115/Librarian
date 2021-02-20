@@ -9,6 +9,7 @@ import warnings
 import requests
 from typing import Optional
 
+from Bots.core.crawlers import Crawler
 from Bots.core.crawlers.default_crawler import Default_Crawler
 
 
@@ -39,11 +40,17 @@ class Spider:
             self.name = name
         elif not getattr(self, 'name', None):
             raise ValueError(f"{type(self).__name__} must have a name")
+
         self.__dict__.update(kwargs)
+
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
         if not hasattr(self, 'crawler'):
             self.crawler = Default_Crawler(self.name + '-crawler')
+        elif not issubclass(self.crawler.__class__, Crawler):
+            raise TypeError(
+                "Cannot initialize instance: Attribute 'crawler' must be an instance of class 'Crawler' or its children"
+            )
 
     @property
     def logger(self):
@@ -64,6 +71,7 @@ class Spider:
         for url in self.start_urls:
             headers = {'user-agent': self.name}
             yield requests.get(url, headers=headers)
+
 
 
 if __name__ == '__main__':
