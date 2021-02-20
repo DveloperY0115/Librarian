@@ -1,13 +1,26 @@
 # -*- coding: utf-8 -*-
-
 """
 Base class for Librarian crawlers
 """
 
+import logging
+import warnings
 from abc import *
+from typing import Optional
 
 
 class Crawler(metaclass=ABCMeta):
+    """
+    Base class for Librarian crawlers. All crawlers must inherit from this.
+    This class and all derived ones define pipelines handling
+    collected data via HTTP request of spiders.
+
+    Attributes:
+        name (str): Name of this instance. Can NOT be None.
+        callbacks (list): List of 'callback' instances.
+    """
+
+    name: Optional[str] = None
 
     def __init__(self, name=None, **kwargs):
         if name is not None:
