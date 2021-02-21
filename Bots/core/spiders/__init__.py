@@ -36,7 +36,7 @@ class Spider:
             kwargs:
                 - follow_external_links (boolean): Determine whether spider should follow links to external sites.
                 Set to 'False' by default.
-                
+
         """
         if name is not None:
             self.name = name
@@ -74,4 +74,5 @@ class Spider:
         # todo: Replace processing to callbacks defined in Crawler
         for url in self.start_urls:
             headers = {'user-agent': self.name}
-            yield requests.get(url, headers=headers)
+            http_response = requests.get(url, headers=headers)
+            return self.crawler(http_response)
