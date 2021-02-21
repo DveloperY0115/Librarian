@@ -44,7 +44,7 @@ class Crawler(metaclass=ABCMeta):
     @property
     def logger(self):
         logger = logging.getLogger(self.name)
-        return logging.LoggerAdapter(logger, {'spider': self})
+        return logging.LoggerAdapter(logger, {'crawler': self})
 
     def log(self, message, level=logging.DEBUG, **kwargs):
         self.logger.log(level, message, **kwargs)
