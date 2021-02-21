@@ -8,6 +8,8 @@ import warnings
 from abc import *
 from typing import Optional
 
+from Bots.core.crawlers.callbacks import *
+
 
 class Crawler(metaclass=ABCMeta):
     """
@@ -29,13 +31,17 @@ class Crawler(metaclass=ABCMeta):
         Args:
             name: Name of this instance. Can NOT be None.
             kwargs:
-            -
+            - callbacks (list): List of 'callback' instances.
         """
         if name is not None:
             self.name = name
         elif not getattr(self, 'name', None):
             raise ValueError(f"{type(self).__name__} must have a name")
+
         self.__dict__.update(kwargs)
+
+        if not hasattr(self, 'callbacks'):
+            self.callbacks = []
 
     @abstractmethod
     def __call__(self, *args, **kwargs):

@@ -28,7 +28,7 @@ class Callback(metaclass=ABCMeta):
         :param args:
         :param kwargs:
         """
-        self.specific_arguments.update(kwargs)
+        self.__dict__.update(kwargs)
         pass
 
     @abstractmethod
@@ -39,10 +39,10 @@ class Callback(metaclass=ABCMeta):
 class get_http_header(Callback):
 
     def __call__(self, http_response, *args, **kwargs):
-        return http_response.headers()
+        return http_response.headers
 
 
 class get_html(Callback):
 
     def __call__(self, http_response, *args, **kwargs):
-        return http_response.text()
+        return http_response.text
