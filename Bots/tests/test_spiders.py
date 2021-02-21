@@ -27,6 +27,7 @@ class TestSpiderConstructor(unittest.TestCase):
 
 class TestSpiderWithDefaultCrawler(unittest.TestCase):
 
+    # todo: refine this test
     def test_send_http_request(self):
         test_url = 'http://www.google.com'
         spider = Spider('test', start_urls=[test_url])

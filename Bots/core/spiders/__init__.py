@@ -15,7 +15,7 @@ from Bots.core.crawlers.default_crawler import Default_Crawler
 
 class Spider:
     """
-    Base class for Librarian spiders. All spiders must inherit from this.
+    Abstract base class for Librarian spiders. All spiders must inherit from this.
     This class and all derived ones define procedures sending & receiving requests
     to servers designated by URLs.
 
