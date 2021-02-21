@@ -25,5 +25,16 @@ class TestSpiderConstructor(unittest.TestCase):
             spider = Spider('test', crawler=invalid_crawler)
 
 
+class TestSpiderWithDefaultCrawler(unittest.TestCase):
+
+    def test_send_http_request(self):
+        test_url = 'http://www.google.com'
+        spider = Spider('test', start_urls=[test_url])
+        header, html, stat_code = spider.initiate_requests()
+        print(header)
+        print(html)
+        print(stat_code)
+
+
 if __name__ == '__main__':
     unittest.main()
