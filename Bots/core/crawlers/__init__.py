@@ -11,7 +11,7 @@ from typing import Optional
 
 class Crawler(metaclass=ABCMeta):
     """
-    Absract base class for Librarian crawlers. All crawlers must inherit from this.
+    Abstract base class for Librarian crawlers. All crawlers must inherit from this.
     This class and all derived ones define pipelines handling
     collected data via HTTP request of spiders.
 
