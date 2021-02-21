@@ -36,6 +36,7 @@ class Callback(metaclass=ABCMeta):
         pass
 
 
+# todo: implement error checking codes
 class get_http_header(Callback):
 
     def __call__(self, http_response, *args, **kwargs):

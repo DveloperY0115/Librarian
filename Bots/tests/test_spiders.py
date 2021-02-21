@@ -25,28 +25,19 @@ class TestSpiderConstructor(unittest.TestCase):
             spider = Spider('test', crawler=invalid_crawler)
 
 
+# todo: refine this test
 class TestSpiderWithDefaultCrawler(unittest.TestCase):
 
-    # todo: refine this test
     def test_single_http_request(self):
         test_url = 'http://www.google.com'
         spider = Spider('test', start_urls=[test_url])
+        spider.crawl()
 
-        for result in spider.crawl():
-            for key in result.keys():
-                print('-----{0}-----'.format(key))
-                print(result[key])
-
-    # todo: implement test case handling multiple urls
     def test_multiple_http_requests(self):
         test_urls = ['http://www.google.com', 'http://www.daum.net', 'http://www.naver.com']
         spider = Spider('test', start_urls=test_urls)
+        spider.crawl()
 
-        for result in spider.crawl():
-            for key in result.keys():
-                print('-----{0}-----'.format(key))
-                print(result[key])
-                
 
 if __name__ == '__main__':
     unittest.main()

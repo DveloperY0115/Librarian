@@ -21,5 +21,6 @@ class Default_Crawler(Crawler):
     def __call__(self, http_response, **kwargs):
         result = {}
         for callback in self.callbacks:
+            # todo: fix 'str(callback)' for better readability
             result[str(callback)] = callback(http_response)
         return result

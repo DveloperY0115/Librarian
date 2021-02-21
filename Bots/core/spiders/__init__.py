@@ -71,7 +71,6 @@ class Spider:
                 "or empty (but found 'start_url' instead, "
                 "did you miss an 's'?)")
 
-        # todo: Replace processing to callbacks defined in Crawler
         for url in self.start_urls:
             headers = {'user-agent': self.name}
             http_response = requests.get(url, headers=headers)
