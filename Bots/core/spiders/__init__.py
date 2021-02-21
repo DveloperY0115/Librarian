@@ -75,4 +75,9 @@ class Spider:
         for url in self.start_urls:
             headers = {'user-agent': self.name}
             http_response = requests.get(url, headers=headers)
-            return self.crawler(http_response)
+            yield http_response
+
+    # NOTE: This method is experimental for now. Design decision may change.
+    def crawl(self):
+        for response in self.initiate_requests():
+            yield self.crawler(response)
