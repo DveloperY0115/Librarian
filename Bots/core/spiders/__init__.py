@@ -32,9 +32,11 @@ class Spider:
         Constructor.
 
         Args:
-            name: Name of this instance. Can NOT be None.
+            name (str): Name of this instance. Can NOT be None.
             kwargs:
-                -
+                - follow_external_links (boolean): Determine whether spider should follow links to external sites.
+                Set to 'False' by default.
+                
         """
         if name is not None:
             self.name = name
@@ -51,6 +53,8 @@ class Spider:
             raise TypeError(
                 "Cannot initialize instance: Attribute 'crawler' must be an instance of class 'Crawler' or its children"
             )
+        if not hasattr(self, 'follow_external_links'):
+            self.follow_external_links = False
 
     @property
     def logger(self):
