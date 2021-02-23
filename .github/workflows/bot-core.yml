@@ -29,6 +29,6 @@ jobs:
           python -m pip install --upgrade pip
           cd Bots && pip install -r requirements.txt
 
-      - name: Run unittests
-        run: |
-          export PYTHONPATH=$PYTHONPATH:`pwd` && cd Bots/tests && python -m unittest discover
+    #  - name: Run unittests
+    #    run: |
+    #      export PYTHONPATH=$PYTHONPATH:`pwd` && cd Bots/tests && python -m unittest discover
