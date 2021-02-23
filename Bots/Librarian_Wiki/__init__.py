@@ -1,12 +1,16 @@
 import scrapy
 
+from scrapy.spiders import CrawlSpider
+from scrapy.spiders import Rule
+from scrapy.linkextractors import LinkExtractor
 
-class ArticleSpider(scrapy.spiders.CrawlSpider):
+class ArticleSpider(CrawlSpider):
     name = 'Wiki_Articles'
     allowed_domains = ['wikipedia.org']
     start_urls = [
-        'https://en.wikipedia.org/wiki/'
+        'https://en.wikipedia.org/wiki/Python_(programming_language)'
     ]
+    rules = [Rule(link_extractor=LinkExtractor(allow=r'.*'), callback='parse')]
 
     def parse(self, response):
         url = response.url
