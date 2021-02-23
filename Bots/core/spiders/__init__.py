@@ -73,8 +73,13 @@ class Spider:
 
         for url in self.start_urls:
             headers = {'user-agent': self.name}
-            http_response = requests.get(url, headers=headers)
-            yield http_response
+            try:
+                http_response = requests.get(url, headers=headers)
+            except requests.exceptions.RequestException:
+                self.log('Failed to retrieve HTTP response from the host {}'.format(url))
+                http_response = None
+            if not http_response:
+                yield http_response
 
     # NOTE: This method is experimental for now. Design decision may change.
     def crawl(self):
