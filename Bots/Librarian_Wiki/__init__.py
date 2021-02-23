@@ -3,6 +3,7 @@ import scrapy
 from scrapy.spiders import CrawlSpider
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
+from items import Article
 
 
 class ArticleSpider(CrawlSpider):
@@ -13,25 +14,14 @@ class ArticleSpider(CrawlSpider):
     ]
     rules = [
         Rule(link_extractor=LinkExtractor(allow='en.wikipedia.org/wiki/((?!:).)*$'),
-             callback='parse', follow=False,
-             cb_kwargs={'is_article': True}),
-        Rule(LinkExtractor(allow='.*'), callback='parse', follow=False,
-             cb_kwargs={'is_article': False})
+             callback='parse', follow=True)
     ]
 
-    def parse(self, response, is_article):
-        print(response.url)
-        title = response.xpath('//title//text()').get()
-
-        if is_article:
-            url = response.url
-            text = response.xpath('//div[@id="mw-content-text"]//p/*').getall()
-            last_updated = response.xpath('//li[@id="footer-info-lastmod"]//text()').get()
-            last_updated = last_updated.replace('This page was last edited on ', '')
-            
-            print(url)
-            print('Title: {}'.format(title))
-            print('last updated: {}'.format(last_updated))
-            print('Text: {}'.format(text))
-        else:
-            print('This is not an article: {}'.format(title))
+    def parse(self, response):
+        article = Article()
+        article['url'] = response.url
+        article['title'] = response.xpath('//title//text()').get()
+        article['text'] = response.xpath('//div[@id="mw-content-text"]//p/*').getall()
+        last_updated = response.xpath('//li[@id="footer-info-lastmod"]//text()').get()
+        article['last_updated'] = last_updated.replace('This page was last edited on ', '')
+        return article
