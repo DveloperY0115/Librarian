@@ -1,6 +1,4 @@
-"""
-Spider used to crawl Wikipedia articles.
-"""
+# Spider used to crawl Wikipedia articles.
 
 from scrapy.spiders import CrawlSpider
 from scrapy.spiders import Rule
@@ -22,8 +20,8 @@ class ArticleSpider(CrawlSpider):
     def parse(self, response):
         article = Article()
         article['url'] = response.url
-        article['title'] = response.xpath('//title//text()').get()
+        article['title'] = response.xpath('//title//text()').extract_first()
         article['text'] = response.xpath('//div[@id="mw-content-text"]//p').getall()
-        last_updated = response.xpath('//li[@id="footer-info-lastmod"]//text()').get()
+        last_updated = response.xpath('//li[@id="footer-info-lastmod"]//text()').extract_first()
         article['last_updated'] = last_updated.replace('This page was last edited on ', '')
         return article
