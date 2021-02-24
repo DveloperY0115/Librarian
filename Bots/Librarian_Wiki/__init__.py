@@ -1,3 +1,7 @@
+"""
+Spider used to crawl Wikipedia articles.
+"""
+
 from scrapy.spiders import CrawlSpider
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
