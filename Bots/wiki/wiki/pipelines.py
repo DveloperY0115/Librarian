@@ -1,10 +1,19 @@
-from datetime import datetime
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+# useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+
 from items import Article
+from datetime import datetime
 from string import whitespace
 
 
-class WikiArticlePipeline(object):
-    def process_article(self, item, spider):
+class WikiPipeline:
+    def process_item(self, item, spider):
         if isinstance(item, Article):
             date_str = item['last_updated']
             date_str = date_str.replace('This page was last edited on ', '')
@@ -16,5 +25,5 @@ class WikiArticlePipeline(object):
             texts = item['text']
             texts = [line for line in texts if line not in whitespace]
             item['text'] = ''.join(texts)
-        return item
 
+        return item
