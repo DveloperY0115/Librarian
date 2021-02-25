@@ -7,12 +7,12 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
-from items import Article
+from .items import Article
 from datetime import datetime
 from string import whitespace
 
 
-class WikiPipeline:
+class LibrarianWikiPipeline:
     def process_item(self, item, spider):
         if isinstance(item, Article):
             date_str = item['last_updated']
