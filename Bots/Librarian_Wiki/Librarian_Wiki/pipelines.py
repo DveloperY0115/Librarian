@@ -7,9 +7,10 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
-from .items import Article
+import json
 from datetime import datetime
 from string import whitespace
+from .items import Article
 
 
 class LibrarianWikiPipeline:
@@ -26,4 +27,18 @@ class LibrarianWikiPipeline:
             texts = [line for line in texts if line not in whitespace]
             item['text'] = ''.join(texts)
 
+        return item
+
+
+class JsonWriterPipeline:
+    def open_spider(self, spider):
+        filename = '.items/' + 'items-{}'.format(spider.name) + '{}.jl'.format(datetime.now())
+        self.file = open(filename, 'w')
+
+    def close_spider(self, spider):
+        self.file.close()
+
+    def process_item(self, item, spider):
+        line = json.dumps(ItemAdapter(item).asdict()) + "\n"
+        self.file.write(line)
         return item

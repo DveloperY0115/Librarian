@@ -64,6 +64,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'Librarian_Wiki.pipelines.LibrarianWikiPipeline': 300,
+    'Librarian_Wiki.pipelines.JsonWriterPipeline': 200,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
