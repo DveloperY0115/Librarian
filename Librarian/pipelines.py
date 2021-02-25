@@ -32,7 +32,7 @@ class LibrarianWikiPipeline:
 
 class JsonWriterPipeline:
     def open_spider(self, spider):
-        filename = '.items/' + 'items-{}'.format(spider.name) + '{}.jl'.format(datetime.now())
+        filename = 'items-{}'.format(spider.name) + '{}.jl'.format(datetime.now())
         self.file = open(filename, 'w')
 
     def close_spider(self, spider):

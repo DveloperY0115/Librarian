@@ -1,4 +1,4 @@
-# Scrapy settings for Librarian_Wiki project
+# Scrapy settings for Librarian project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'Librarian_Wiki'
+BOT_NAME = 'Librarian'
 
-SPIDER_MODULES = ['Librarian_Wiki.spiders']
-NEWSPIDER_MODULE = 'Librarian_Wiki.spiders'
+SPIDER_MODULES = ['Librarian.spiders']
+NEWSPIDER_MODULE = 'Librarian.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'Librarian_Wiki (+http://www.yourdomain.com)'
+#USER_AGENT = 'Librarian (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'Librarian_Wiki.middlewares.LibrarianWikiSpiderMiddleware': 543,
+#    'Librarian.middlewares.LibrarianWikiSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'Librarian_Wiki.middlewares.LibrarianWikiDownloaderMiddleware': 543,
+#    'Librarian.middlewares.LibrarianWikiDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,8 +63,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'Librarian_Wiki.pipelines.LibrarianWikiPipeline': 300,
-    'Librarian_Wiki.pipelines.JsonWriterPipeline': 200,
+    'Librarian.pipelines.LibrarianWikiPipeline': 300,
+    'Librarian.pipelines.JsonWriterPipeline': 200,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
