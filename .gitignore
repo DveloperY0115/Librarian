@@ -135,11 +135,11 @@ dmypy.json
 .pyre/
 
 # Data
+Data
+
 *.csv
 *.json
 *.jl
 *.xml
 *.txt
-
-# Private files
-Tests/access_db.py
+*.html
