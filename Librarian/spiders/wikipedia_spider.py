@@ -18,13 +18,17 @@ class ArticleSpider(CrawlSpider):
     ]
 
     def parse(self, response):
-        self.save_html(response)
+        # self.save_html(response)
         article = Article()
         article['url'] = response.url
         article['title'] = response.xpath('//title//text()').extract_first()
-        article['text'] = response.xpath('//div[@id="mw-content-text"]//p').getall()
+        article['text'] = self.get_first_paragraph(response)
         article['last_updated'] = response.xpath('//li[@id="footer-info-lastmod"]//text()').extract_first()
         return article
+
+    def get_first_paragraph(self, response):
+        text = response.xpath('//div[@id="mw-content-text"]//p[not(@class="mw-empty-elt")]').extract_first()
+        return text
 
     def save_html(self, response):
         # todo: handle exception for somewhat invalid pages (prevent storing incomplete files)
@@ -34,3 +38,4 @@ class ArticleSpider(CrawlSpider):
         with open(filename, 'w', encoding=response.encoding) as f:
             f.write(html)
         f.close()
+
