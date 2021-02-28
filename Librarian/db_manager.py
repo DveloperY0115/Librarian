@@ -50,6 +50,17 @@ class DatabaseManager:
         return True
 
     def init_connection(self, db, user, passwd, host):
+        """
+        Initiates connection to the database
+
+        Args:
+            db: Name of database
+            user: User-name used during connection
+            passwd: Password required to gain access to database
+            host: IP address of the server hosting database
+
+        Returns: Database handles
+        """
         try:
             conn = pymysql.connect(db=db,
                                    user=user, passwd=passwd,
