@@ -1,5 +1,5 @@
 import pymysql
-
+from pypika import Query
 
 class DatabaseManager:
 
@@ -21,31 +21,30 @@ class DatabaseManager:
         self.conn, self.cursor = self.init_connection(db, user, passwd, host)
 
     def register_item(self, item, table, overwrite=True):
+        """
+        Register data contained in Scrapy item to a table in the database bound to this instance.
+
+        Args:
+            item: Scrapy item instance
+            table: A table to put data in
+            overwrite: Whether to overwrite existing data or not, set to true by default
+
+        Returns: Nothing
+        """
         field_dict = {'url': '=' + '\'' + item.get('url') + '\''}
+        q = Query.into(table).columns('title', 'url', 'content', 'last_updated').insert(
+            item.get('title'), item.get('url'), item.get('text'), item.get('last_updated')
+        )
         if self.check_exists(table, field_dict):
             # if the page of the same URL already exists in the table
             if overwrite:
-                sql = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)'
-                self.cursor.execute(sql,
-                                    (
-                                        item.get('title'),
-                                        item.get('url'),
-                                        item.get('text'),
-                                        item.get('last_updated')
-                                    ))
+                self.cursor.execute(q.get_sql())
                 self.conn.commit()
             else:
                 # Do nothing.
                 pass
         else:
-            sql = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)'
-            self.cursor.execute(sql,
-                                (
-                                    item.get('title'),
-                                    item.get('url'),
-                                    item.get('text'),
-                                    item.get('last_updated')
-                                ))
+            self.cursor.execute(q.get_sql())
             self.conn.commit()
 
     def check_exists(self, table, field_dict):
