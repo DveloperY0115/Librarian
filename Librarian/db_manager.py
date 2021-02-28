@@ -1,5 +1,5 @@
 import pymysql
-
+from pypika import Query, Table, Field
 
 class DatabaseManager:
 
@@ -22,20 +22,19 @@ class DatabaseManager:
 
     def register_item(self, item, table, overwrite=True):
         field_dict = {'url': '=' + '\'' + item.get('url') + '\''}
+        q = Query.into(table).columns('title', 'url', 'content', 'last_updated').insert(
+            item.get('title'), item.get('url'), item.get('text'), item.get('last_updated')
+        )
         if self.check_exists(table, field_dict):
             # if the page of the same URL already exists in the table
             if overwrite:
-                query = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)' \
-                        % item.get('title'), item.get('url'), item.get('text'), item.get('last_updated')
-                self.cursor.execute(query)
+                self.cursor.execute(q.get_sql())
                 self.conn.commit()
             else:
                 # Do nothing.
                 pass
         else:
-            query = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)' \
-                    % item.get('title'), item.get('url'), item.get('text'), item.get('last_updated')
-            self.cursor.execute(query)
+            self.cursor.execute(q.get_sql())
             self.conn.commit()
 
     def check_exists(self, table, field_dict):
