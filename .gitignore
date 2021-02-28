@@ -136,10 +136,12 @@ dmypy.json
 
 # Data
 Data
-
 *.csv
 *.json
 *.jl
 *.xml
 *.txt
 *.html
+
+# Private configs
+Librarian/db_configs.py
