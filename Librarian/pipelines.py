@@ -9,7 +9,6 @@ from itemadapter import ItemAdapter
 from scrapy.exceptions import NotConfigured
 
 import json
-import pymysql
 from datetime import datetime
 from .items import Article
 from .db_manager import DatabaseManager
@@ -20,11 +19,9 @@ class LibrarianWikiPipeline:
         if isinstance(item, Article):
             date_str = item['last_updated']
             item['last_updated'] = process_last_updated(date_str)
-            """
-            texts = item['text']
-            texts = [line for line in texts if line not in whitespace]
-            item['text'] = ''.join(texts)
-            """
+            # texts = item['text']
+            # texts = [line for line in texts if line not in whitespace]
+            # item['text'] = ''.join(texts)
         return item
 
 
