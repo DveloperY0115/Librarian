@@ -37,7 +37,16 @@ class DatabaseManager:
                 # Do nothing.
                 pass
 
-    def check_exists(self, item, field_dict, table):
+    def check_exists(self, table, field_dict):
+        """
+        Checks whether the row satisfying the given condition exists in the table.
+
+        Args:
+            field_dict: Python dictionary containing key-value pairs { (Field name, Content) ...}
+            table: A table on which the search will be performed
+
+        Returns: True if the item satisfying condition exists, False otherwise.
+        """
         return True
 
     def init_connection(self, db, user, passwd, host):
