@@ -76,6 +76,11 @@ class DatabaseManager:
         return conn, cursor
 
     def close_connection(self):
+        """
+        Closes connection to the database
+
+        Returns: Nothing
+        """
         try:
             self.cursor.close()
         except pymysql.Error as e:
