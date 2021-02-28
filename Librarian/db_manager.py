@@ -21,6 +21,16 @@ class DatabaseManager:
         self.conn, self.cursor = self.init_connection(db, user, passwd, host)
 
     def register_item(self, item, table, overwrite=True):
+        """
+        Register data contained in Scrapy item to a table in the database bound to this instance.
+
+        Args:
+            item: Scrapy item instance
+            table: A table to put data in
+            overwrite: Whether to overwrite existing data or not, set to true by default
+
+        Returns: Nothing
+        """
         field_dict = {'url': '=' + '\'' + item.get('url') + '\''}
         q = Query.into(table).columns('title', 'url', 'content', 'last_updated').insert(
             item.get('title'), item.get('url'), item.get('text'), item.get('last_updated')
