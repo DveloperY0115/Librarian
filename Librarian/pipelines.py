@@ -12,6 +12,7 @@ import json
 import pymysql
 from datetime import datetime
 from .items import Article
+from .db_manager import DatabaseManager
 
 
 class LibrarianWikiPipeline:
@@ -33,27 +34,16 @@ class DatabasePipeline:
         self.user = user
         self.passwd = passwd
         self.host = host
-        
+        self.db_manager = None
+
     def open_spider(self, spider):
-        self.conn = pymysql.connect(db=self.db,
-                                    user=self.user, passwd=self.passwd,
-                                    host=self.host,
-                                    charset='utf8', use_unicode=True)
-        self.cursor = self.conn.cursor()
+        self.db_manager = DatabaseManager(self.db, self.user, self.passwd, self.host)
 
     def close_spider(self, spider):
-        self.conn.close()
+        self.db_manager.close_connection()
 
     def process_item(self, item, spider):
-        sql = "INSERT INTO pages (title, url, content, last_updated) VALUES (%s, %s, %s, %s)"
-        self.cursor.execute(sql,
-                            (
-                                item.get("title"),
-                                item.get("url"),
-                                item.get("text"),
-                                item.get("last_updated")
-                            ))
-        self.conn.commit()
+        self.db_manager.register_item(item, 'pages', overwrite=True)
         return item
 
     @classmethod
