@@ -37,4 +37,3 @@ class ArticleSpider(CrawlSpider):
         with open(filename, 'w', encoding=response.encoding) as f:
             f.write(html)
         f.close()
-
