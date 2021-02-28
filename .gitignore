@@ -143,5 +143,8 @@ Data
 *.txt
 *.html
 
+# Logs
+log
+
 # Private configs
 Librarian/db_configs.py
