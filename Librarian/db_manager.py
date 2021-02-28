@@ -1,3 +1,4 @@
+import MySQLdb
 import pymysql
 
 
@@ -25,27 +26,17 @@ class DatabaseManager:
         if self.check_exists(table, field_dict):
             # if the page of the same URL already exists in the table
             if overwrite:
-                sql = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)'
-                self.cursor.execute(sql,
-                                    (
-                                        item.get('title'),
-                                        item.get('url'),
-                                        item.get('text'),
-                                        item.get('last_updated')
-                                    ))
+                query = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES ({0}, {1}, {2}, {3})' \
+                    .format(item.get('title'), item.get('url'), item.get('text'), item.get('last_updated'))
+                self.cursor.execute(query)
                 self.conn.commit()
             else:
                 # Do nothing.
                 pass
         else:
-            sql = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)'
-            self.cursor.execute(sql,
-                                (
-                                    item.get('title'),
-                                    item.get('url'),
-                                    item.get('text'),
-                                    item.get('last_updated')
-                                ))
+            query = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES ({0}, {1}, {2}, {3})' \
+                    .format(item.get('title'), item.get('url'), item.get('text'), item.get('last_updated'))
+            self.cursor.execute(query)
             self.conn.commit()
 
     def check_exists(self, table, field_dict):
