@@ -31,7 +31,6 @@ class ArticleSpider(CrawlSpider):
         return text
 
     def save_html(self, response):
-        # todo: handle exception for somewhat invalid pages (prevent storing incomplete files)
         html = response.body.decode(response.encoding)
         title = response.xpath('//title//text()').extract_first().replace(' ', '')
         filename = './Data/html/' + title + ".html"
