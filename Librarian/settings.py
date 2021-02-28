@@ -7,7 +7,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-from .db_configs import *
+from .db_configs import wiki_article_db_settings
 
 BOT_NAME = 'Librarian'
 
