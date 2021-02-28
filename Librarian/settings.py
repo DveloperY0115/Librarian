@@ -7,6 +7,8 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from .db_configs import DB_SETTINGS
+
 BOT_NAME = 'Librarian'
 
 SPIDER_MODULES = ['Librarian.spiders']
@@ -63,7 +65,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'Librarian.pipelines.LibrarianWikiPipeline': 300,
+    'Librarian.pipelines.LibrarianWikiPipeline': 200,
+    'Librarian.pipelines.DatabasePipeline': 300,
 #    'Librarian.pipelines.JsonWriterPipeline': 200,
 }
 
