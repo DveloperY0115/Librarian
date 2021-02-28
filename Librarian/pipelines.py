@@ -69,10 +69,7 @@ class JsonWriterPipeline:
         return item
 
 
-"""
-Helper functions for modifying data extracted from Wikipedia articles
-"""
-
+# Helper functions for modifying data extracted from Wikipedia articles
 
 def process_last_updated(date_str):
     date_str = date_str.replace('This page was last edited on ', '')
