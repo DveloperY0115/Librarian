@@ -7,7 +7,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-from .db_configs import DB_SETTINGS
+from .db_configs import wiki_article_db_settings
 
 BOT_NAME = 'Librarian'
 
@@ -69,6 +69,9 @@ ITEM_PIPELINES = {
     'Librarian.pipelines.DatabasePipeline': 300,
 #    'Librarian.pipelines.JsonWriterPipeline': 200,
 }
+
+# Database setting
+WIKI_ARTICLE_DB_SETTINGS = wiki_article_db_settings
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

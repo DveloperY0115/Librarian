@@ -1,5 +1,6 @@
 import pymysql
-from pypika import Query
+from pypika import Query, Table, Criterion
+
 
 class DatabaseManager:
 
@@ -31,11 +32,10 @@ class DatabaseManager:
 
         Returns: Nothing
         """
-        field_dict = {'url': '=' + '\'' + item.get('url') + '\''}
         q = Query.into(table).columns('title', 'url', 'content', 'last_updated').insert(
             item.get('title'), item.get('url'), item.get('text'), item.get('last_updated')
         )
-        if self.check_exists(table, field_dict):
+        if self.check_exists(table, item):
             # if the page of the same URL already exists in the table
             if overwrite:
                 self.cursor.execute(q.get_sql())
@@ -47,20 +47,21 @@ class DatabaseManager:
             self.cursor.execute(q.get_sql())
             self.conn.commit()
 
-    def check_exists(self, table, field_dict):
+    def check_exists(self, table, item):
         """
-        Checks whether the row satisfying the given condition exists in the table.
+        Checks whether the given item already exists in the table.
 
         Args:
-            field_dict: Python dictionary containing key-value pairs { (Field name, Constraint) ...}
+            item: Scrapy item object to be examined
             table: A table on which the search will be performed
 
         Returns: True if the item satisfying condition exists, False otherwise.
         """
-        conditions = [str(field) + str(constraint) for (field, constraint) in field_dict.items()]
-        conditions = ' AND '.join(conditions)
-        query = 'SELECT * FROM ' + table + ' WHERE ' + conditions
-        self.cursor.execute(query)
+        table= Table(table)
+        q = Query.from_(table).select(table.url).where(
+                (table.url == item.get('url'))
+        )
+        self.cursor.execute(q.get_sql())
         if self.cursor.rowcount == 0:
             # No match found, item doesn't exist
             return False

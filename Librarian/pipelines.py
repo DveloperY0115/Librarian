@@ -45,7 +45,7 @@ class DatabasePipeline:
 
     @classmethod
     def from_crawler(cls, crawler):
-        db_settings = crawler.settings.getdict('DB_SETTINGS')
+        db_settings = crawler.settings.getdict('WIKI_ARTICLE_DB_SETTINGS')
         if not db_settings:
             raise NotConfigured
         db = db_settings['db']
