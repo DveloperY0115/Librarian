@@ -4,6 +4,17 @@ import pymysql
 class DatabaseManager:
 
     def __init__(self, db, user, passwd, host):
+        """
+        Constructor.
+
+        Establishes connection to the database and binds the DB handle to an instance.
+
+        Args:
+            db: Name of database
+            user: User-name used during connection
+            passwd: Password required to gain access to database
+            host: IP address of the server hosting database
+        """
         self.db = db
         self.user = user
         self.host = host
