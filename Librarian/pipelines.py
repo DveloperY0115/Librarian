@@ -43,7 +43,7 @@ class DatabasePipeline:
         self.db_manager.close_connection()
 
     def process_item(self, item, spider):
-        self.db_manager.register_item(item, 'pages', overwrite=True)
+        self.db_manager.register_item(item, 'pages', overwrite=False)
         return item
 
     @classmethod

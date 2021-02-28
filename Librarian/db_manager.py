@@ -21,32 +21,50 @@ class DatabaseManager:
         self.conn, self.cursor = self.init_connection(db, user, passwd, host)
 
     def register_item(self, item, table, overwrite=True):
-        if self.check_exists(item, {'url': item.get('url')}, table):
+        field_dict = {'url': '=' + '\'' + item.get('url') + '\''}
+        if self.check_exists(table, field_dict):
             # if the page of the same URL already exists in the table
             if overwrite:
-                sql = "INSERT INTO " + table + " (title, url, content, last_updated) VALUES (%s, %s, %s, %s)"
+                sql = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)'
                 self.cursor.execute(sql,
                                     (
-                                        item.get("title"),
-                                        item.get("url"),
-                                        item.get("text"),
-                                        item.get("last_updated")
+                                        item.get('title'),
+                                        item.get('url'),
+                                        item.get('text'),
+                                        item.get('last_updated')
                                     ))
                 self.conn.commit()
             else:
                 # Do nothing.
                 pass
+        else:
+            sql = 'INSERT INTO ' + table + ' (title, url, content, last_updated) VALUES (%s, %s, %s, %s)'
+            self.cursor.execute(sql,
+                                (
+                                    item.get('title'),
+                                    item.get('url'),
+                                    item.get('text'),
+                                    item.get('last_updated')
+                                ))
+            self.conn.commit()
 
     def check_exists(self, table, field_dict):
         """
         Checks whether the row satisfying the given condition exists in the table.
 
         Args:
-            field_dict: Python dictionary containing key-value pairs { (Field name, Content) ...}
+            field_dict: Python dictionary containing key-value pairs { (Field name, Constraint) ...}
             table: A table on which the search will be performed
 
         Returns: True if the item satisfying condition exists, False otherwise.
         """
+        conditions = [str(field) + str(constraint) for (field, constraint) in field_dict.items()]
+        conditions = ' AND '.join(conditions)
+        query = 'SELECT * FROM ' + table + ' WHERE ' + conditions
+        self.cursor.execute(query)
+        if self.cursor.rowcount == 0:
+            # No match found, item doesn't exist
+            return False
         return True
 
     def init_connection(self, db, user, passwd, host):

@@ -3,7 +3,7 @@
 from scrapy.spiders import CrawlSpider
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
-from ..items import Article
+from Librarian.items import Article
 
 
 class ArticleSpider(CrawlSpider):
