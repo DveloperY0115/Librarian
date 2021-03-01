@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'Librarian.pipelines.LibrarianWikiPipeline': 200,
+    'Librarian.pipelines.HTMLPipeline': 200,
     'Librarian.pipelines.DatabasePipeline': 300,
 #    'Librarian.pipelines.JsonWriterPipeline': 200,
 }
