@@ -49,7 +49,7 @@ class DatabaseManager:
 
     def check_exists(self, table, item):
         """
-        Checks whether the given item already exists in the table.
+        Checks whether the given  already exists in the table.
 
         Args:
             item: Scrapy item object to be examined
