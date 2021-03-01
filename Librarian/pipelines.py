@@ -36,8 +36,7 @@ class HTMLPipeline:
         if len(compressed_html) > MEDIUMTEXT_MAX_LEN:
             # if the document is too long
             return None
-        else:
-            item['html'] = compressed_html
+        item['html'] = compressed_html
         return item
 
 
