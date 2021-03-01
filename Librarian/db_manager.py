@@ -1,5 +1,5 @@
 import pymysql
-from pypika import Query, Table, Criterion
+from pypika import Query, Table
 
 
 class DatabaseManager:

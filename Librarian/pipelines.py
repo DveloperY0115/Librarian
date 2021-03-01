@@ -11,7 +11,6 @@ from scrapy.exceptions import NotConfigured
 import htmlmin
 import json
 from datetime import datetime
-from .items import RawWebContent
 from .db_manager import DatabaseManager
 
 
