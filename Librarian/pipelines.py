@@ -15,6 +15,9 @@ from .items import RawWebContent
 from .db_manager import DatabaseManager
 
 
+MEDIUMTEXT_MAX_LEN = 16777215
+
+
 class HTMLPipeline:
     def process_item(self, item, spider):
         """
@@ -31,9 +34,9 @@ class HTMLPipeline:
 
         """
         compressed_html = htmlmin.minify(item['html'])
-        if len(compressed_html) > 50000:
+        if len(compressed_html) > MEDIUMTEXT_MAX_LEN:
             # if the document is too long
-            item['html'] = None
+            item['html'] = 'ERROR: Beyond Limit'
         else:
             item['html'] = compressed_html
         return item
