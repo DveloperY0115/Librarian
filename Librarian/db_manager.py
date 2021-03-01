@@ -32,8 +32,8 @@ class DatabaseManager:
 
         Returns: Nothing
         """
-        q = Query.into(table).columns('title', 'url', 'content', 'last_updated').insert(
-            item.get('title'), item.get('url'), item.get('text'), item.get('last_updated')
+        q = Query.into(table).columns('url', 'html').insert(
+            item.get('url'), item.get('html')
         )
         if self.check_exists(table, item):
             # if the page of the same URL already exists in the table
