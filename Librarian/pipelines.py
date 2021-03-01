@@ -8,15 +8,34 @@
 from itemadapter import ItemAdapter
 from scrapy.exceptions import NotConfigured
 
+import htmlmin
 import json
 from datetime import datetime
 from .items import RawWebContent
 from .db_manager import DatabaseManager
 
 
-class Pipeline:
+class HTMLPipeline:
     def process_item(self, item, spider):
+        """
+        Process HTTP response acquired from web servers.
 
+        This pipeline does barely nothing, except compressing the HTML file to
+        fit it into the database. If the document is too long, it will leave HTML field empty.
+
+        Args:
+            item: Scrapy item instance
+            spider: Scrapy spider which uses this pipeline
+
+        Returns: Scrapy item instance, but whose HTML data is compressed or None.
+
+        """
+        compressed_html = htmlmin.minify(item['html'])
+        if len(compressed_html) > 50000:
+            # if the document is too long
+            item['html'] = None
+        else:
+            item['html'] = compressed_html
         return item
 
 
